@@ -1,0 +1,34 @@
+class Solution {
+public:
+    bool wordPattern(string pattern, string s) {
+        unordered_map<char,string >map1;
+        unordered_map<string,char>map2;
+        int ptr1=0,ptr2=0;
+        for(int i=0;i<pattern.size();i++)
+        {
+            string word="";
+            if(i!=pattern.size()-1)
+            {
+                ptr2=s.find(' ',ptr1);//Found the ending index of a word
+                word=s.substr(ptr1,ptr2-ptr1);//getting the word
+            }else//when your i is at last index
+            {
+                word=s.substr(ptr1,s.size()-ptr1);
+            }
+            if(s=="")
+            return false;
+            if(!map1.count(pattern[i]))
+            {
+                map1[pattern[i]]=word;
+            }
+            if(!map2[word])
+            {
+                map2[word]=pattern[i];
+            }
+            if(map1[pattern[i]]!=word||map2[word]!=pattern[i])
+            return false;
+            ptr1=ptr2+1;
+        }
+        return true;
+    }
+};
