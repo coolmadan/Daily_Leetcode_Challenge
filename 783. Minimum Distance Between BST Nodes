@@ -1,0 +1,22 @@
+class Solution {
+public:
+    vector<int>vec;
+    void inorder(TreeNode *root)
+    {
+        if(root==NULL)
+            return;
+        //INORDER TRAVERSAL FIRST left node then root and then right node
+        inorder(root->left);
+        vec.push_back(root->val);
+        inorder(root->right);
+    }
+    int minDiffInBST(TreeNode* root) {
+        inorder(root);
+        int ans =INT_MAX;
+        for(int i =0;i<vec.size()-1;i++)
+        {
+            ans = min(ans,vec[i+1]-vec[i]);
+        }
+        return ans;
+    }
+};
